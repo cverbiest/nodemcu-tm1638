@@ -58,9 +58,14 @@ end
 
 function module.sendChar(address, char, dot)
     data = font[char];
-    if dot then
-        hex = bit.bor(data, 0x80)
+    if data then
+        if dot then
+            data = bit.bor(data, 0x80)        
+        end    
+    else 
+        data = 0;
     end
+    
     address = bit.lshift(address, 1)
     sendData(address, data)
 end
