@@ -10,3 +10,9 @@ tm.sendChar(4, "E", false)
 tm.sendChar(5, "F", false)
 tm.sendChar(6, "0", false)
 tm.sendChar(7, "1", false)
+
+tm.sendChar(4, "x", 1)
+
+tm.print("  1984  ")
+
+tm.print("")
