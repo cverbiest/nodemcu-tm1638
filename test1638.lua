@@ -13,6 +13,18 @@ tm.sendChar(7, "1", false)
 
 tm.sendChar(4, "x", 1)
 
+tmr.delay(1000)
+
 tm.print("  1984  ")
+
+tm.print("37.4")
+
+tmr.delay(1000)
+
+for j=61,60 do
+-- without delay my nodemcu crashes
+tmr.delay(1000)
+tm.print(j .. "")
+end
 
 tm.print("")
