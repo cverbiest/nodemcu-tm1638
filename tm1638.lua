@@ -1,10 +1,12 @@
+local module = {}
+
 pinStb = 7
 pinClk = 6
 pinDio = 5
 
 font = { }
 
-function setupFont()
+local function setupFont()
     font['0'] = '0x3F'
     font['1'] = '0x06'
     font['2'] = '0x5B'
@@ -26,7 +28,7 @@ function setupFont()
     font["-"] = '0x20'
 end
 
-function send(byte)
+local function send(byte)
     mask = 0x1
     for i=0,7 do
         gpio.write(pinClk, gpio.LOW)
@@ -40,13 +42,13 @@ function send(byte)
     end
 end
 
-function sendCommand(cmd)
+local function sendCommand(cmd)
     gpio.write(pinStb, gpio.LOW)
     send(cmd)
     gpio.write(pinStb, gpio.HIGH)
 end
 
-function sendData(address, data)
+local function sendData(address, data)
     sendCommand(0x44)
     gpio.write(pinStb, gpio.LOW)
     send(bit.bor(0xC0, address))
@@ -54,7 +56,7 @@ function sendData(address, data)
     gpio.write(pinStb, gpio.HIGH)
 end
 
-function sendChar(address, char, dot)
+function module.sendChar(address, char, dot)
     data = font[char];
     if dot then
         hex = bit.bor(data, 0x80)
@@ -63,7 +65,7 @@ function sendChar(address, char, dot)
     sendData(address, data)
 end
 
-function setup()
+function module.setup()
     setupFont()
 
     gpio.mode(pinStb, gpio.OUTPUT)
