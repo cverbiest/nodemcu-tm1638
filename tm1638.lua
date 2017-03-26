@@ -7,6 +7,7 @@ pinDio = 5
 font = { }
 
 local function setupFont()
+    font[" "] = '0x00'
     font['0'] = '0x3F'
     font['1'] = '0x06'
     font['2'] = '0x5B'
