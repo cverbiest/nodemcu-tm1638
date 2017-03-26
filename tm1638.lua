@@ -71,6 +71,30 @@ function module.sendChar(address, char, dot)
     sendData(address, data)
 end
 
+function module.print(iString)
+    print ("print [" .. iString .. "]")
+    i = 1
+    j = 0
+    repeat
+        dot = false
+        char = string.sub(iString, i, i)
+        if (char == ".") then
+            char = " "
+            dot = true
+        else
+            if (string.sub(iString, i+1, i+1) == ".") then
+                i=i+1
+                dot=true
+            end
+        end
+
+        print ("i=" .. i .. " char=" .. char .. " dot=" .. tostring(dot))
+        module.sendChar(j, char, dot)
+        i=i+1
+        j=j+1
+    until (j == 8)
+end
+
 function module.setup()
     setupFont()
 
@@ -91,3 +115,5 @@ function module.setup()
     end
     gpio.write(pinStb, gpio.HIGH)
 end
+
+return module  
