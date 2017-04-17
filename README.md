@@ -5,7 +5,8 @@ Lua library for tm1638 (nodemcu, esp8266)
 This is a fork of a fork of csolg/nodemcu-tm1638
 
 If i do something wrong with master and branch and pull-request etc... _SORRY!_ 
-This is the first time i do that an i will read the GIT-Doc's asap to it better next time... ;-)
+
+This is the first time i do that and i will read the GIT-Doc's asap to it better next time... ;-)
 
 # What did i change:
 I added the following Functions
