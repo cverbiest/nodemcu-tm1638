@@ -133,7 +133,7 @@ function module.test_modul()
 
     -- Alle LEDs wieder aus
     for i=0,7 do
-        module,setLED(i,0)    
+        module.setLED(i,0)    
     end
 
 end
