@@ -113,7 +113,7 @@ end
 function module.test_modul()
     -- Alle LEDs an
     for i=0,7 do
-        module,setLED(i,1)    
+        module.setLED(i,1)    
     end
 
     -- Alle DOTs an
