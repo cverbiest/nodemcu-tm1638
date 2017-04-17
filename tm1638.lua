@@ -160,7 +160,7 @@ function module.setup()
 end
 
 function module.start()
-	setup()
+	module.setup()
 end
 
 return module  
