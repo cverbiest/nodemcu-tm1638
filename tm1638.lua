@@ -57,7 +57,7 @@ local function sendData(address, data)
     gpio.write(pinStb, gpio.HIGH)
 end
 
-function module.sendChar(address, char, dot)
+local function sendChar(address, char, dot)
     data = font[char];
     if data then
         if dot then
@@ -69,6 +69,21 @@ function module.sendChar(address, char, dot)
     
     address = bit.lshift(address, 1)
     sendData(address, data)
+end
+
+function module.setChar(address, char, dot)
+    -- Adresse:0..7 -> gerade Adressen
+    address = bit.band(address, 0x0F)
+    sendChar(address, char:upper(), dot)
+end
+
+function module.setLED(address, value)
+    -- Adresse:0..7 --> ungerade Adressen
+    address = bit.band(address, 0x0F)
+    address = bit.lshift(address, 1)
+    address = bit.bor(address, 0x01)
+    
+    sendData(address, value)
 end
 
 function module.print(iString)
@@ -89,10 +104,38 @@ function module.print(iString)
         end
 
         print ("i=" .. i .. " char=" .. char .. " dot=" .. tostring(dot))
-        module.sendChar(j, char, dot)
+        sendChar(j, char, dot)
         i=i+1
         j=j+1
     until (j == 8)
+end
+
+function module.test_modul()
+    -- Alle LEDs an
+    for i=0,7 do
+        module.setLED(i,1)    
+    end
+
+    -- Alle DOTs an
+    for i=0,7 do
+        module.setChar(i,"_",true)    
+    end
+    
+    -- Alle Segmente an
+    for i=0,7 do
+        module.setChar(i,"8",false)    
+    end
+
+    -- Alles wieder aus
+    for i=0,7 do
+        module.setChar(i,"_",false)    
+    end
+
+    -- Alle LEDs wieder aus
+    for i=0,7 do
+        module.setLED(i,0)    
+    end
+
 end
 
 function module.setup()
@@ -114,6 +157,10 @@ function module.setup()
         send(0x00)
     end
     gpio.write(pinStb, gpio.HIGH)
+end
+
+function module.start()
+	module.setup()
 end
 
 return module  
